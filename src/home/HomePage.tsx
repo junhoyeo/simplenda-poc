@@ -39,6 +39,9 @@ const HomePage = () => {
 
           <span style={{ color: 'gray' }}>
             password is juno2023 (not exposed in browser context)
+            <br />
+            새로고침 할 때도 쿠키에 세션 유지 + 하위 URL 주소로 들어갔을 때도
+            작동하도록 고쳥야함
           </span>
         </Container>
       )}
