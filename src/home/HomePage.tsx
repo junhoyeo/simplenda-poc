@@ -5,17 +5,23 @@ import styled from 'styled-components';
 const HomePage = () => {
   const [passcode, setPasscode] = useState<string>('');
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onSubmit = useCallback(async () => {
+    if (isLoading) {
+      return;
+    }
+    setIsLoading(true);
     const { data } = await axios.post<{ status: boolean }>('/api/auth', {
       passcode,
     });
+    setIsLoading(false);
     if (!data.status) {
       alert('Wrong passcode');
       return;
     }
     setIsCorrect(true);
-  }, [passcode]);
+  }, [isLoading, passcode]);
 
   return (
     <>
