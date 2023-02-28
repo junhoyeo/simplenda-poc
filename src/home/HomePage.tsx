@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 const HomePage = () => {
   const [passcode, setPasscode] = useState<string>('');
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
 
-  const onSubmit = () => {
-    if (passcode !== '1234') {
+  const onSubmit = useCallback(async () => {
+    const { data } = await axios.post<{ status: boolean }>('/api/auth', {
+      passcode,
+    });
+    if (!data.status) {
       alert('Wrong passcode');
       return;
     }
     setIsCorrect(true);
-  };
+  }, [passcode]);
 
   return (
     <>
@@ -32,6 +36,10 @@ const HomePage = () => {
           <Button type="button" onClick={onSubmit}>
             Submit
           </Button>
+
+          <span style={{ color: 'gray' }}>
+            password is juno2023 (not exposed in browser context)
+          </span>
         </Container>
       )}
     </>
