@@ -22,4 +22,11 @@ export const GlobalStyle = createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+  html, body, div#__next {
+    height: 100%;
+  }
+  body {
+    min-height: 100%;
+  }
 `;
